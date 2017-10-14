@@ -3,7 +3,7 @@ My Initiation of Building Frontend with React and Webpack
 
 Check It Out Here [GitHub Battles](https://github-battle-ea613.firebaseapp.com)
 
-> A Vue.js project
+> A React.js project
 
 ## Build Setup
 
