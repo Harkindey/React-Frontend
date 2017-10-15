@@ -43,6 +43,11 @@ li {
   transform: translateY(1px);
 }
 
+.error-message {
+  color: #d0021b;
+  font-size: 15px;
+  text-align: center;
+ }
 
 .languages {
   display: flex;
