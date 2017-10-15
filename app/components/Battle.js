@@ -100,6 +100,14 @@ class Battle extends React.Component {
     var playerTwoName = this.state.playerTwoName;
     var playerOneImage = this.state.playerOneImage;
     var playerTwoImage = this.state.playerTwoImage;
+    var validMatch = playerOneName !== playerTwoName;
+    var linkTo = {
+      pathname: match.url + '/results',
+      search: `?playerOneName=` + playerOneName + `&playerTwoName=` + playerTwoName
+    };
+    var battleLink = validMatch ?
+      <Link className='button' to={linkTo}>Battle</Link> :
+      <p className="error-message">A user cannot battle himself.</p>;
 
     return (
       <div>
@@ -143,15 +151,7 @@ class Battle extends React.Component {
               </PlayerPreview>}
         </div>
 
-        {playerOneImage && playerTwoImage && <Link
-          className='button'
-          to={{
-            pathname: match.url + '/results',
-            search: `?playerOneName=` + playerOneName + `&playerTwoName=` +playerTwoName
-          }}
-          >
-            Battle
-          </Link> }
+        {playerOneImage && playerTwoImage && battleLink}
       </div>
     )
   }
