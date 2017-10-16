@@ -4,7 +4,7 @@ var queryString = require('query-string');
 var api = require('../utils/api');
 var Link = require('react-router-dom').Link;
 var PlayerPreview = require('./PlayerPreview');
-var Loading = require('./Loading')
+var Loading = require('./Loading');
 
 
 function Profile(props) {
@@ -26,7 +26,7 @@ function Profile(props) {
 }
 
 Profile.propTypes = {
-  info: PropTypes.object.isRequired,
+  info: PropTypes.object.isRequired
 }
 
 function Player(props) {
@@ -52,8 +52,7 @@ class Results extends React.Component {
     super(props);
 
     this.state = {
-      winner: null,
-      loser: null,
+      results: null,
       error: null,
       loading: true
     }
@@ -69,7 +68,7 @@ class Results extends React.Component {
         return this.setState(function () {
           return {
             error: 'Looks like there was error. Check that both users exist on Github',
-            laoding: false,
+            loading: false
           }
         });
       }
@@ -77,21 +76,30 @@ class Results extends React.Component {
       this.setState(function () {
         return {
           error: null,
-          winner: results[0],
-          loser: results[1],
+          results: results,
           loading: false
         }
       });
     }.bind(this));
   }
+
+  getResultText(currentPlayer, otherPlayer) {
+    return currentPlayer.score > otherPlayer.score ?
+      'Winner' : currentPlayer.score === otherPlayer.score ?
+        'Draw' : 'Loser'
+  }
+
   render() {
     var error = this.state.error;
-    var winner = this.state.winner;
-    var loser = this.state.loser;
+    var results = this.state.results;
     var loading = this.state.loading;
 
     if (loading === true) {
       return <Loading />
+    }
+
+    if (!error && (results === null || results.length !== 2)) {
+      error = 'Unexpected API response. Please try again.';
     }
 
     if (error) {
@@ -102,18 +110,19 @@ class Results extends React.Component {
         </div>
       )
     }
+
     return(
       <div className='row'>
         <Player
-          label='Winner'
-          score={winner.score}
-          profile={winner.profile}
+          label={this.getResultText(results[0], results[1])}
+          score={results[0].score}
+          profile={results[0].profile}
         />
 
         <Player
-          label='Loser'
-          score={loser.score}
-          profile={loser.profile}
+          label={this.getResultText(results[1], results[0])}
+          score={results[1].score}
+          profile={results[1].profile}
         />
       </div>
     )
