@@ -115,10 +115,6 @@ class Results extends React.Component {
       )
     }
 
-    if (winner.score === loser.score) {
-
-    }
-
     return(
       <div className='row'>
         <Player
