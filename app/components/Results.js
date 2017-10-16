@@ -84,6 +84,18 @@ class Results extends React.Component {
       });
     }.bind(this));
   }
+
+  chooseLabel(label) {
+    var winner = this.state.winner;
+    var loser = this.state.loser;
+
+    if(winner.score === loser.score) {
+      return 'Draw'
+    }
+
+    return label
+  }
+
   render() {
     var error = this.state.error;
     var winner = this.state.winner;
@@ -102,16 +114,21 @@ class Results extends React.Component {
         </div>
       )
     }
+
+    if (winner.score === loser.score) {
+
+    }
+
     return(
       <div className='row'>
         <Player
-          label='Winner'
+          label={this.chooseLabel('Winner')}
           score={winner.score}
           profile={winner.profile}
         />
 
         <Player
-          label='Loser'
+          label={this.chooseLabel('Looser')}
           score={loser.score}
           profile={loser.profile}
         />
