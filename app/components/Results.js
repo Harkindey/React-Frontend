@@ -102,16 +102,19 @@ class Results extends React.Component {
         </div>
       )
     }
+
+    var isDraw = this.state.winner.score === this.state.loser.score
+
     return(
       <div className='row'>
         <Player
-          label='Winner'
+          label={ isDraw ? 'Draw': 'Winner' }
           score={winner.score}
           profile={winner.profile}
         />
 
         <Player
-          label='Loser'
+          label={ isDraw ? 'Draw': 'Loser' }
           score={loser.score}
           profile={loser.profile}
         />
